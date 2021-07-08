@@ -8,7 +8,7 @@ def test_get_args(mocker):
     Read a JSON file and try to assign its values to variables
     - OK: the values are properly assigned to the variables
     """
-    mocker.patch("sys.argv", ["test", "./test_input_scenario.json"])
+    mocker.patch("sys.argv", ["test", "./test_input_scenarios/test_input_scenario.json"])
     keywords_list, proxies_list, search_type = get_args()
     assert all([a == b for a, b in zip(keywords_list, ["openstack", "nova", "css"])])
     assert all([a == b for a, b in zip(proxies_list, ["194.126.37.94:8080", "13.78.125.167:8080"])])
@@ -20,7 +20,7 @@ def test_get_args_read_error(mocker):
     Read a faulty JSON file and try to assign its values to variables
     - OK: the function raises a general Exception
     """
-    mocker.patch("sys.argv", ["test", "./test_input_scenario_error_read.json"])
+    mocker.patch("sys.argv", ["test", "./test_input_scenarios/test_input_scenario_error_read.json"])
     with pytest.raises(Exception):
         keywords_list, proxies_list, search_type = get_args()
 
@@ -30,7 +30,7 @@ def test_get_args_value_error(mocker):
     Read a faulty JSON file and try to assign its values to variables
     - OK: the function raises a ValueError
     """
-    mocker.patch("sys.argv", ["test", "./test_input_scenario_error_value.json"])
+    mocker.patch("sys.argv", ["test", "./test_input_scenarios/test_input_scenario_error_value.json"])
     with pytest.raises(ValueError):
         keywords_list, proxies_list, search_type = get_args()
 
@@ -88,7 +88,7 @@ def test_crawl_search_results_unicode():
     Crawl the Github search results, searching for weird unicode characters
     - OK: the function doesn't fail
     """
-    keywords_list = ["邏 樂 洛 烙 珞", "✈ ✉ ✌ ✍ ✎ ✏", "︺ ︻"]
+    keywords_list = ["邏樂洛", "✈✉✌"]
     search_type = "Issues"
     assert type(crawl_search_results(keywords_list, search_type)) is list
 
