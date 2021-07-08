@@ -1,5 +1,7 @@
 # github-crawler
 
+### Crawl Github search results of repositories, issues or wikis.
+
 ## How to use
 
 1.  At the root of the project, run `pip install -r requirements/common.txt`
