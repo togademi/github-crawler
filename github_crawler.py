@@ -24,6 +24,7 @@ def get_args():
     if search_type.lower() not in ['repositories', 'issues', 'wikis']:
         raise ValueError(f'Type "{search_type}" unsupported, only repositories, issues or wikis.')
 
+    print('Arguments read.')
     return keywords_list, proxies_list, search_type
 
 
@@ -57,6 +58,7 @@ def crawl_search_results(keywords_list, search_type):
     :param search_type: Type of data to search for (repositories, issues or wikis)
     :return: html_data, a list of partial paths (list of strings)
     """
+    print('Crawling Github...')
     url = "https://github.com/search?q="
     for keyword in keywords_list:
         url += f"{keyword}+"
@@ -122,9 +124,11 @@ def export_json(data):
     :param data: Processed data in a format of list of dicts, parsable by JSON
     :return: None
     """
-    now = datetime.now().strftime("%Y%m%d_%I%M%S")
-    with open(f"output_github_crawler_{now}.json", "w+") as output_file:
+    now = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"output_github_crawler_{now}.json"
+    with open(filename, "w+") as output_file:
         json.dump(data, output_file)
+        print(f'File {filename} created.')
 
 
 if __name__ == '__main__':
