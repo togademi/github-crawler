@@ -3,7 +3,7 @@ from github_crawler import (get_args, transform_args, get_tree, crawl_search_res
 
 
 def test_get_args(mocker):
-    mocker.patch("sys.argv", ["test", "./input_example.json"])
+    mocker.patch("sys.argv", ["test", "./test_input_scenario.json"])
     keywords_list, proxies_list, type_str = get_args()
     assert all([a == b for a, b in zip(keywords_list, ["openstack", "nova", "css"])])
     assert all([a == b for a, b in zip(proxies_list, ["194.126.37.94:8080", "13.78.125.167:8080"])])
