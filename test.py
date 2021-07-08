@@ -56,4 +56,6 @@ def test_process_html_data_repositories():
 def test_process_html_data_other():
     html_data_search = ['/atuldjadhav/DropBox-Cloud-Storage', '/michealbalogun/Horizon-dashboard']
     type_str = "Issues"
-    assert process_html_data(html_data_search, type_str) == [{'url': 'https://github.com/atuldjadhav/DropBox-Cloud-Storage'}, {'url': 'https://github.com/michealbalogun/Horizon-dashboard'}]
+    assert process_html_data(html_data_search, type_str) == [
+        {'url': 'https://github.com/atuldjadhav/DropBox-Cloud-Storage'},
+        {'url': 'https://github.com/michealbalogun/Horizon-dashboard'}]

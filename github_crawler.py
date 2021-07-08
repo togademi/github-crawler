@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from lxml import html
 import random
@@ -72,7 +73,8 @@ def process_html_data(html_data_search, type_str):
 
 
 def export_json(data):
-    with open("output.json", "w+") as output_file:
+    now = datetime.now().strftime("%Y%m%d%I%M%S")
+    with open(f"output_github_crawler_{now}.json", "w+") as output_file:
         json.dump(data, output_file)
 
 
