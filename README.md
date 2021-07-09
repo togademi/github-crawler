@@ -2,6 +2,10 @@
 
 ### Crawl Github search results of repositories, issues or wikis.
 
+## Requirements
+
+* Recommended Python 3.6+
+
 ## How to use
 
 1.  At the root of the project, run `pip install -r requirements/common.txt`
