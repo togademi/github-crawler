@@ -97,25 +97,16 @@ def process_html_data(html_data_search, search_type):
     Convert the crawled data into formatted dictionaries. Crawl for extra data when processing repositories
     :param html_data_search: List of partial paths of the URLs of search results
     :param search_type: Type of data to search for (repositories, issues or wikis)
-    :return: processed_data, a list of dictionaries with each search result
+    :return: a list of dictionaries with each search result
     """
-    processed_data = [{'url': f"https://github.com{item}"} for item in html_data_search]
-
     if search_type == "Repositories":
-        owner_list = [item.split('/')[1] for item in html_data_search]
-        for i in range(len(processed_data)):
-            language_stats = crawl_repository_page(html_data_search[i])
-            language_stats_copy = []
+        return [{'url': f'https://github.com{item}',
+                 'extra': {'owner': item.split('/')[1],
+                           'language_stats':
+                               dict([[pair[0], float(pair[1])] for pair in [stats.split() for stats in crawl_repository_page(item)]])}}
+                for item in html_data_search]
 
-            # convert 'language percentage' (str) into {language: percentage} (dict)
-            for item in language_stats:
-                language_stats_copy.extend(item.split())
-            language_stats_dict = {language_stats_copy[i]: float(language_stats_copy[i + 1]) for i in
-                                   range(0, len(language_stats_copy), 2)}
-            processed_data[i]["extra"] = {"owner": owner_list[i],
-                                          "language_stats": language_stats_dict}
-
-    return processed_data
+    return [{'url': f'https://github.com{item}'} for item in html_data_search]
 
 
 def export_json(data):
